@@ -32,8 +32,19 @@ func PostPerson(rw http.ResponseWriter, r *http.Request) {
 }
 
 func GetPerson(rw http.ResponseWriter, r *http.Request) {
-	name := r.URL.Query().Get("name")
-	rw.Write([]byte(name))
+	name := r.URL.Query().Get("id")
+	var person entity.Person
+	result := db.GetDB().Find(&person, "id=?", name)
+	if result.RecordNotFound() {
+		http.Error(rw, "No Record Found", http.StatusInternalServerError)
+		return
+	}
+
+	if result.Error != nil {
+		http.Error(rw, result.Error.Error(), http.StatusInternalServerError)
+	}
+	personData, _ := json.Marshal(person)
+	rw.Write(personData)
 }
 
 func hasError(rw http.ResponseWriter, err error, message string) bool {
