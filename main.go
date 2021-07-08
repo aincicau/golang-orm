@@ -15,6 +15,7 @@ func main() {
 	router.Route("/v1", func(r chi.Router) {
 		r.Get("/person", rest.GetPerson)
 		r.Post("/person", rest.PostPerson)
+		r.Delete("/person", rest.DeletePerson)
 	})
 	http.ListenAndServe(":8080", router)
 }
