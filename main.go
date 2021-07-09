@@ -25,7 +25,7 @@ func main() {
 
 	}
 
-	db.InitDatabase(config.GetConfig().Database.URL, config.GetConfig().Database.Version)
+	db.InitDatabase()
 
 	router := chi.NewRouter()
 	router.Route("/"+config.GetConfig().APPVersion, func(r chi.Router) {
