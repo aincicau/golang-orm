@@ -42,6 +42,7 @@ func GetPerson(rw http.ResponseWriter, r *http.Request) {
 
 	if result.Error != nil {
 		http.Error(rw, result.Error.Error(), http.StatusInternalServerError)
+		return
 	}
 	personData, _ := json.Marshal(person)
 	rw.Write(personData)
@@ -59,5 +60,11 @@ func hasError(rw http.ResponseWriter, err error, message string) bool {
 
 func DeletePerson(rw http.ResponseWriter, r *http.Request) {
 	idValue := r.URL.Query().Get("id")
-	db.GetDB().Delete(&entity.Person{}, "id=?", idValue)
+	result := db.GetDB().Delete(&entity.Person{}, "id=?", idValue)
+	if result.Error != nil {
+		http.Error(rw, "Internal Error. Please try again after some time", http.StatusInternalServerError)
+		return
+	}
+
+	rw.Write([]byte("Record successfully deleted"))
 }
