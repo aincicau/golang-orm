@@ -16,8 +16,9 @@ var db *gorm.DB
 
 func InitDatabase() {
 	migrateConnection, err := migrate.New("file://db/migrate", config.GetConfig().Database.URL)
+	fmt.Println(config.GetConfig().Database.URL)
 	if err != nil {
-		fmt.Println("Error Creating Tables")
+		fmt.Println("Error Connecting to DB", err.Error())
 		return
 	}
 

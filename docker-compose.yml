@@ -10,7 +10,8 @@ services:
             - POSTGRES_PASSWORD=mysecretpassword
             - POSTGRES_DB=postgres
     golang:
-        image: aincicau/golang:1.0
+        #image: aincicau/golang:1.0
+        build: .
         restart: on-failure
         environment: 
             - DATABASE_URL=postgres://postgres:mysecretpassword@golangorm_postgres_1:5432/postgres?sslmode=disable
