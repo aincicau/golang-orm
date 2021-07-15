@@ -18,4 +18,4 @@ services:
             - "8080:8080"  
         depends_on:
             - postgres
-            #POSTGRES_USER:POSTGRES_PASSWORD@numeproiect_serviciu(postgres)_versiune:port/POSTGRES_DB
+            #://POSTGRES_USER:POSTGRES_PASSWORD@numeproiect_serviciu(postgres)_versiune:port/POSTGRES_DB?sslmode=disable
